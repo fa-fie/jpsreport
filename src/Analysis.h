@@ -159,6 +159,8 @@ private:
     std::vector<MeasurementArea_B *> _areasForMethodG;
     std::vector<MeasurementArea_B *> _areasForMethodH;
 
+    MeasurementArea_B * _areaForTesting;
+
     ConfigData_D configData_D;
 };
 

@@ -41,6 +41,7 @@
 #include "methods/Method_H.h"
 #include "methods/PedData.h"
 #include "methods/VoronoiDiagram.h"
+#include "testing/DifferentVariants.h"
 
 #include <algorithm> // std::min_element, std::max_element
 #include <cfloat>
@@ -224,6 +225,9 @@ void Analysis::InitArgs(ArgumentParser * args)
         }
         _deltaTMethodH = args->GetTimeIntervalH();
     }
+
+    // hardcoded for testing different variants of measuring Tin Tout
+    _areaForTesting = dynamic_cast<MeasurementArea_B *>(args->GetMeasurementArea(1));
 
     _deltaF                 = args->GetDelatT_Vins();
     _vComponent             = args->GetVComponent();
@@ -548,6 +552,12 @@ int Analysis::RunAnalysis(const fs::path & filename, const fs::path & path)
             }
         }
     }
+
+    // testing the different variants of measuring Tin Tout
+    // hardcoded measurement area
+    MeasurementArea_B * area = dynamic_cast<MeasurementArea_B *>(_areaForTesting);
+    DifferentVariants testingVariants(area);
+    testingVariants.RunTests(data);
 
     return 0;
 }
